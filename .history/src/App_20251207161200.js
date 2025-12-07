@@ -1,5 +1,5 @@
 import "./App.css";
-import ToDoList from "./components/TodoList";
+import ToDoList from "./components/ToDoList";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         height: "100vh",
       }}
     >
-      <ToDoList />
+      <ToDoList style={{ background: "white" }} />
     </div>
   );
 }

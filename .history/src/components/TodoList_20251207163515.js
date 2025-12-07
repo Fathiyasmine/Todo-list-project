@@ -1,0 +1,19 @@
+import * as React from "react";
+import Container from "@mui/material/Container";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+
+export default function ToDoList() {
+  return (
+    <Container maxWidth="sm">
+      <Card>
+        <CardContent>
+          <Typography variant="h2">My To Do List</Typography>
+          <Divider />
+        </CardContent>
+      </Card>
+    </Container>
+  );
+}

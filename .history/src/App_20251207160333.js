@@ -1,5 +1,5 @@
 import "./App.css";
-import ToDoList from "./components/TodoList";
+import ToDoList from "./components/ToDoList";
 
 function App() {
   return (
@@ -9,8 +9,6 @@ function App() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "#a877b0",
-        height: "100vh",
       }}
     >
       <ToDoList />
