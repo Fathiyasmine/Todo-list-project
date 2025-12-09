@@ -1,0 +1,220 @@
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+//Icons:
+import CheckIcon from "@mui/icons-material/Check";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+
+import IconButton from "@mui/material/IconButton";
+import { useContext, useState } from "react";
+import { TodosContext } from "../contexts/todosContext";
+//delete modal imports:
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+
+export default function Todo({ todo, handleCheck }) {
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [UpdateDialog, setUpdateDialog] = useState(false);
+  const [updatedTodo, setUpdatedTodo] = useState({
+    title: "",
+    details: "",
+  });
+  const { todos, setTodos } = useContext(TodosContext);
+  //event handlers:
+  function handleCheckClick() {
+    const updatedTodos = todos.map((t) => {
+      if (t.id === todo.id) {
+        t.isCompleted = !t.isCompleted;
+      }
+      return t;
+    });
+    setTodos(updatedTodos);
+  }
+  function handleDeleteClick() {
+    setShowDeleteDialog(true);
+  }
+  function handleDeleteDialogClose() {
+    setShowDeleteDialog(false);
+  }
+  function handleDeleteConfirm() {
+    const updatedTodos = todos.filter((t) => {
+      // if (t.id === todo.id) {
+      //   return false;// exclude this todo => expl : 2!==2 => false => on l'exclut de la nouvelle liste
+      // } else {
+      //   return true;// keep this todo
+      // }
+      return t.id !== todo.id; // keep only todos that do not match the id to be deleted(on garde seulement les todos qui ne correspondent pas à l'id à supprimer)
+    });
+    setTodos(updatedTodos);
+  }
+  function handleUpdateClose() {
+    setUpdateDialog(false);
+  }
+  function handleUpdateConfirm() {
+    //logic to update the todo
+  const
+  }
+  function handleUpdateClick() {
+    setUpdateDialog(true);
+  }
+  //event handlers
+  return (
+    <>
+      {/*delete modal */}
+      <Dialog
+        style={{ direction: "ltr" }}
+        onClose={handleDeleteDialogClose}
+        open={showDeleteDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Etes-vous sur de vouloir supprimer ce todo ?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Une fois supprimé, vous ne pourrez pas le récupérer.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteDialogClose}>Fermer</Button>
+          <Button autoFocus onClick={handleDeleteConfirm}>
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/*delete modal */}
+      {/*update dialog */}
+      <Dialog
+        style={{ direction: "ltr" }}
+        onClose={handleUpdateClose}
+        open={UpdateDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Modifier la todo"}</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="text"
+            label="Modifier le todo"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={updatedTodo.title}
+            onChange={(e) => {
+              setUpdatedTodo({ ...updatedTodo, title: e.target.value });
+            }}
+          />
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="text"
+            label="details"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={updatedTodo.details}
+            onChange={(e) => {
+              setUpdatedTodo({ ...updatedTodo, details: e.target.value });
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleUpdateClose}>Fermer</Button>
+          <Button autoFocus onClick={handleUpdateConfirm}>
+            Modifier
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/*update dialog */}
+      <Card
+        className="todocard"
+        style={{ color: "white", background: "#c990d3a3", marginTop: 5 }}
+      >
+        <CardContent>
+          <Grid container spacing={2}>
+            <Grid size={8}>
+              <Typography variant="h5" sx={{ textAlign: "left" }}>
+                {todo.title}
+              </Typography>
+              <Typography variant="h6" sx={{ textAlign: "left" }}>
+                {todo.details}
+              </Typography>
+            </Grid>
+            {/*Action buttons */}
+
+            <Grid
+              size={4}
+              display="flex"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              {" "}
+              {/*check icon button */}
+              <IconButton
+                onClick={() => {
+                  handleCheckClick();
+                }}
+                className="iconButton"
+                aria-label="delete"
+                color="primary"
+                style={{
+                  color: todo.isCompleted ? "#4CAF50" : "orange",
+                  background: todo.isCompleted ? "#4CAF50" : "white",
+                  border: "solid 3px #388E3C",
+                }}
+              >
+                <CheckIcon />
+              </IconButton>
+              {/*check icon button */}
+              {/*update button */}
+              <IconButton
+                onClick={handleUpdateClick}
+                className="iconButton"
+                aria-label="delete"
+                color="primary"
+                style={{
+                  color: "#FFA726",
+                  background: "white",
+                  border: "solid 3px #FFA726",
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+              {/*update button */}
+              {/*delete button */}
+              <IconButton
+                className="iconButton"
+                aria-label="delete"
+                color="primary"
+                style={{
+                  color: "red",
+                  background: "white",
+                  border: "solid 3px red",
+                }}
+                onClick={handleDeleteClick}
+              >
+                <DeleteIcon />
+              </IconButton>
+              {/*delete button */}
+            </Grid>
+            {/*Action buttons */}
+          </Grid>
+        </CardContent>
+      </Card>
+    </>
+  );
+}
