@@ -58,9 +58,9 @@ export default function ToDoList() {
   // Il permet d'executer du code en reponse a des changements d'etat ou de props, ou lors du montage et demontage du composant.
   // Par exemple, on peut lutiliser pour recuperer des donnees depuis une API, mettre a jour le DOM, ou configurer des abonnements.
   //on peut lappeler selon une dependance (ex: variable) ou une seule fois au montage (load) (avec tableau vide [])
-  // function changeDisplayedType(e) {
-  //   setDisplayedTodosType(e.target.value);
-  // }
+  function changeDisplayedType(e) {
+    setDisplayedTodosType(e.target.value);
+  }
   function handleAddClick() {
     const newTodo = {
       id: uuidv4(),

@@ -69,8 +69,6 @@ export default function Todo({ todo, handleCheck }) {
       }
     });
     setTodos(updatedTodos);
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
-
     setUpdateDialog(false);
   }
   function handleUpdateClick() {
@@ -159,13 +157,7 @@ export default function Todo({ todo, handleCheck }) {
         <CardContent>
           <Grid container spacing={2}>
             <Grid size={8}>
-              <Typography
-                variant="h5"
-                sx={{
-                  textAlign: "left",
-                  textDecoration: todo.isCompleted ? "line-through" : "none",
-                }}
-              >
+              <Typography variant="h5" sx={{ textAlign: "left" }}>
                 {todo.title}
               </Typography>
               <Typography variant="h6" sx={{ textAlign: "left" }}>
@@ -236,64 +228,3 @@ export default function Todo({ todo, handleCheck }) {
     </>
   );
 }
-
-/*
-Je vais t'expliquer la logique derrière l'utilisation de localStorage avec getItem dans useEffect et setItem dans les event handlers.
-Pourquoi getItem dans useEffect ?
-javascriptuseEffect(() => {
-  const savedData = localStorage.getItem('myData');
-  if (savedData) {
-    setData(JSON.parse(savedData));
-  }
-}, []); // [] = une seule fois au chargement
-Raison : On veut récupérer les données sauvegardées dès que le composant se charge (monte). C'est comme ouvrir un fichier au démarrage de l'application.
-
-Le useEffect avec [] s'exécute une seule fois après le premier rendu
-On charge les données précédemment sauvegardées
-Ça initialise l'état de notre composant avec les données persistées
-
-Pourquoi setItem dans les event handlers ?
-javascriptconst handleChange = (newValue) => {
-  setData(newValue); // Met à jour React
-  localStorage.setItem('myData', JSON.stringify(newValue)); // Sauvegarde
-};
-Raison : On veut sauvegarder chaque fois que l'utilisateur fait une action (clic, saisie, etc.).
-
-Chaque modification doit être persistée immédiatement
-Si l'utilisateur ferme la page, ses changements sont sauvegardés
-C'est comme une sauvegarde automatique
-
-Exemple complet
-javascriptfunction TodoApp() {
-  const [todos, setTodos] = useState([]);
-
-  * LECTURE au chargement (une fois)
-  useEffect(() => {
-    const saved = localStorage.getItem('todos');
-    if (saved) {
-      setTodos(JSON.parse(saved));
-    }
-  }, []);
-
-  * ÉCRITURE à chaque ajout (événement)
-  const addTodo = (text) => {
-    const newTodos = [...todos, { id: Date.now(), text }];
-    setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
-  };
-
-  * ÉCRITURE à chaque suppression (événement)
-  const deleteTodo = (id) => {
-    const newTodos = todos.filter(t => t.id !== id);
-    setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
-  };
-
-  return ;
-
-Le cycle de vie
-
-Page se charge → useEffect lit localStorage → initialise l'état
-Utilisateur agit → event handler → met à jour l'état + sauvegarde dans localStorage
-Page se ferme puis se rouvre → retour à l'étape 1
-*/

@@ -46,11 +46,9 @@ export default function ToDoList() {
   });
 
   useEffect(() => {
-    const storageTodos = JSON.parse(localStorage.getItem("todos"));
-    setTodos(storageTodos || []); // Si null, utilise un tableau vide
-  }); // ⚠️ Important : [] pour exécuter une seule fois au montage
-  //ce code ne sappelle quune fois au montage du composant(load du component)
-  //code dun side effect qui recupere les todos du local storage,hors de la fct de composant
+    const storageTodos = JSON.parse(localStorage.getItem("todos")); //code dun side effect qui recupere les todos du local storage,hors de la fct de composant
+    setTodos(storageTodos); //ce code ne sappelle quune fois au montage du composant(load du component)
+  });
   //fct appelee a chaque rendu (chaque load de la page) sappele une fois au montage du composant(quand le composant est complet et son load est fait et affiche au client)
   // , car [] est vide, si on met des variables
   // dans le tableau, elle sapelle a chaque fois que ces variables changent
@@ -58,9 +56,9 @@ export default function ToDoList() {
   // Il permet d'executer du code en reponse a des changements d'etat ou de props, ou lors du montage et demontage du composant.
   // Par exemple, on peut lutiliser pour recuperer des donnees depuis une API, mettre a jour le DOM, ou configurer des abonnements.
   //on peut lappeler selon une dependance (ex: variable) ou une seule fois au montage (load) (avec tableau vide [])
-  // function changeDisplayedType(e) {
-  //   setDisplayedTodosType(e.target.value);
-  // }
+  function changeDisplayedType(e) {
+    setDisplayedTodosType(e.target.value);
+  }
   function handleAddClick() {
     const newTodo = {
       id: uuidv4(),
@@ -75,10 +73,7 @@ export default function ToDoList() {
   }
   return (
     <Container maxWidth="sm">
-      <Card
-        // sx={{ minWidth: 275 }}
-        style={{ maxHeight: "80vh", overflow: "scroll" }}
-      >
+      <Card sx={{ minWidth: 275 }} style={{ maxHeight: "80vh" }}>
         <CardContent>
           <Typography variant="h2" style={{ fontWeight: "bold" }}>
             My To Do List
@@ -88,14 +83,13 @@ export default function ToDoList() {
           <ToggleButtonGroup
             value={displayedTodosType}
             exclusive
-            onChange={(e, newValue) => setDisplayedTodosType(newValue)}
+            onChange={setDisplayedTodosType}
             aria-label="text alignment"
             style={{ marginTop: "30px" }}
-            color="primary"
           >
-            <ToggleButton value="non-completed">En cours</ToggleButton>
-            <ToggleButton value="completed">Terminés</ToggleButton>
-            <ToggleButton value="all">Tout</ToggleButton>
+            <ToggleButton value="non-completed">Tout</ToggleButton>
+            <ToggleButton value="completed">En cours</ToggleButton>
+            <ToggleButton value="all">Terminees</ToggleButton>
           </ToggleButtonGroup>
           {/*Filter buttons */}
           {/*All todos */}
@@ -113,7 +107,7 @@ export default function ToDoList() {
               <TextField
                 fullWidth
                 id="standard-basic"
-                label="Ajouter une tâche"
+                label="Ajouter une tache"
                 variant="standard"
                 value={titleInput}
                 onChange={(e) => {
@@ -138,7 +132,6 @@ export default function ToDoList() {
                 onClick={() => {
                   handleAddClick();
                 }}
-                disabled={!titleInput || titleInput.trim() === ""}
               >
                 Ajouter
               </Button>
