@@ -86,9 +86,7 @@ export default function ToDoList() {
   function handleDeleteConfirm() {
     dispatch({
       type: "deleted",
-      payload: {
-        id: dialogTodo.id,
-      },
+      payload: dialogTodo.id,
     });
     setShowDeleteDialog(false);
     showHideToast("Suppression avec succès !");
@@ -109,10 +107,10 @@ export default function ToDoList() {
     dispatch({
       type: "updated",
       payload: {
-        //dialogTodo, //dialogTodo contient lid du todo a modifier, title et details
-        title: updatedTodo.title,
-        details: updatedTodo.details,
-        id: dialogTodo.id,
+        dialogTodo, //dialogTodo contient lid du todo a modifier, title et details
+        //title: updatedTodo.title,
+        //details: updatedTodo.details,
+        //id: dialogTodo.id,
       },
     });
     setUpdateDialog(false);

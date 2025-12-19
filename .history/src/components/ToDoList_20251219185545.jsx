@@ -86,9 +86,7 @@ export default function ToDoList() {
   function handleDeleteConfirm() {
     dispatch({
       type: "deleted",
-      payload: {
-        id: dialogTodo.id,
-      },
+      payload: { dialogTodo },
     });
     setShowDeleteDialog(false);
     showHideToast("Suppression avec succès !");
