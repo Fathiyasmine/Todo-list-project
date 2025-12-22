@@ -41,7 +41,7 @@ export default function Todo({ todo, showDelete, showUpdate }) {
         className="todoCard"
         sx={{
           minWidth: 275,
-          background: "#ab47bc8f",
+          background: "pink",
           color: "white",
           marginTop: 5,
         }}

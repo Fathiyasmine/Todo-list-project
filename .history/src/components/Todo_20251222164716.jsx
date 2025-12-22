@@ -41,19 +41,14 @@ export default function Todo({ todo, showDelete, showUpdate }) {
         className="todoCard"
         sx={{
           minWidth: 275,
-          background: "#ab47bc8f",
+          background: "#ab47bc78",
           color: "white",
           marginTop: 5,
         }}
       >
         <CardContent>
           <Grid container spacing={2}>
-            <Grid
-              size={8}
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
+            <Grid item xs={8}>
               <Typography
                 variant="h5"
                 sx={{
@@ -71,7 +66,8 @@ export default function Todo({ todo, showDelete, showUpdate }) {
 
             {/* ACTION BUTTONS */}
             <Grid
-              size={4}
+              item
+              xs={4}
               display="flex"
               justifyContent="space-around"
               alignItems="center"

@@ -41,7 +41,7 @@ export default function Todo({ todo, showDelete, showUpdate }) {
         className="todoCard"
         sx={{
           minWidth: 275,
-          background: "#ab47bc8f",
+          background: "pink",
           color: "white",
           marginTop: 5,
         }}
@@ -51,7 +51,7 @@ export default function Todo({ todo, showDelete, showUpdate }) {
             <Grid
               size={8}
               display="flex"
-              justifyContent="flex-start"
+              justifyContent="space-around"
               alignItems="center"
             >
               <Typography

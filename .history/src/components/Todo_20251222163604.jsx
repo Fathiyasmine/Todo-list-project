@@ -23,7 +23,7 @@ export default function Todo({ todo, showDelete, showUpdate }) {
   // EVENT HANDLERS
   function handleCheckClick() {
     dispatch({ type: "toggledCompleted", payload: todo });
-    showHideToast("Modification avec succès !");
+    showHideToast("Modifie avec succes");
   }
 
   function handleDeleteClick() {
@@ -41,19 +41,14 @@ export default function Todo({ todo, showDelete, showUpdate }) {
         className="todoCard"
         sx={{
           minWidth: 275,
-          background: "#ab47bc8f",
+          background: "pink",
           color: "white",
           marginTop: 5,
         }}
       >
         <CardContent>
           <Grid container spacing={2}>
-            <Grid
-              size={8}
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
+            <Grid xs={8}>
               <Typography
                 variant="h5"
                 sx={{
@@ -71,7 +66,7 @@ export default function Todo({ todo, showDelete, showUpdate }) {
 
             {/* ACTION BUTTONS */}
             <Grid
-              size={4}
+              xs={4}
               display="flex"
               justifyContent="space-around"
               alignItems="center"
